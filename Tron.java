@@ -224,11 +224,11 @@ class GamePanel extends JPanel implements MouseListener{
 			    	boardtrack[player1.getTronX()/5+1][player1.getTronY()/5]=1;
 			    	boardtrack[player1.getTronX()/5][player1.getTronY()/5+1]=1;
 			    	boardtrack[player1.getTronX()/5+1][player1.getTronY()/5+1]=1;
-					System.out.print(player1.getAlive());
-			    	boardtrack[player2.getTronX()/5][player2.getTronY()/5]=1;
-			    	boardtrack[player2.getTronX()/5+1][player2.getTronY()/5]=1;
-			    	boardtrack[player2.getTronX()/5][player2.getTronY()/5+1]=1;
-			    	boardtrack[player2.getTronX()/5+1][player2.getTronY()/5+1]=1;
+
+			    	boardtrack[player2.getTronX()/5][player2.getTronY()/5]=2;
+			    	boardtrack[player2.getTronX()/5+1][player2.getTronY()/5]=2;
+			    	boardtrack[player2.getTronX()/5][player2.getTronY()/5+1]=2;
+			    	boardtrack[player2.getTronX()/5+1][player2.getTronY()/5+1]=2;
 
 	    		}
 	    	startPos=false;
@@ -338,7 +338,6 @@ class GamePanel extends JPanel implements MouseListener{
 
     }
     public void move(){
-    	System.out.println("D");
     	if (menuYes==false){
 
 	    	if (player1Move==RIGHT){
@@ -377,7 +376,15 @@ class GamePanel extends JPanel implements MouseListener{
 
 	    }
 	    else if (temp>2){
-
+			g.drawImage(tronBack,0,0,this);
+			for (int i = 0; i < boardtrack.length; i++) {
+				for (int j = 0; j < boardtrack[i].length; j++) {
+					if (boardtrack[i][j] > 0) {
+						g.setColor(boardtrack[i][j] == 1 ? player1.getTronColor() : player2.getTronColor());
+						g.fillRect(i*5,j*5,10,10);
+					}
+				}
+			}
 		    if (player1.getAlive()==true && player2.getAlive()==true){
 		    	g.setColor(player1.getTronColor());
 		       	g.fillRect(player1.getTronX(),player1.getTronY(),10,10);
