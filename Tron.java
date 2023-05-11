@@ -67,7 +67,7 @@ class TronMenu extends JFrame implements ActionListener{//This class acts as a m
 		me3 = m;
 		playBtn.addActionListener(this);
 		instructBtn.addActionListener(this);
-		ImageIcon back = new ImageIcon("MENUBACK.jpg");//background for the menu
+		ImageIcon back = new ImageIcon("tronImages/MENUBACK.jpg");//background for the menu
 		JLabel backLabel = new JLabel(back);//backLabel is the diplay area for the menuback image 
 		JLayeredPane mPage=new JLayeredPane();// LayeredPane allows me to control what shows on top
 		mPage.setLayout(null);
@@ -85,7 +85,7 @@ class TronMenu extends JFrame implements ActionListener{//This class acts as a m
 			mPage.add(instructBtn,0);
 			
 			//I got all the following fonts from a website and downloaded the image
-			ImageIcon title1 = new ImageIcon("tronTitle1.png");//It's a long title so I had to break it up into two 
+			ImageIcon title1 = new ImageIcon("tronImages/tronTitle1.png");//It's a long title so I had to break it up into two 
 															   //different images and display the second below the first.
 															   //This is the first part 
 			JLabel titleLabel1 = new JLabel(title1);
@@ -93,7 +93,7 @@ class TronMenu extends JFrame implements ActionListener{//This class acts as a m
 			titleLabel1.setLocation(-5,50);
 			mPage.add(titleLabel1,0);
 			
-			ImageIcon title2 = new ImageIcon("tronTitle2.png");//this is the second part of the title
+			ImageIcon title2 = new ImageIcon("tronImages/tronTitle2.png");//this is the second part of the title
 			JLabel titleLabel2 = new JLabel(title2);
 			titleLabel2.setSize(800,40);
 			titleLabel2.setLocation(5,100);
@@ -104,31 +104,31 @@ class TronMenu extends JFrame implements ActionListener{//This class acts as a m
 			playBtn.setLocation(300,420);
 			mPage.add(playBtn,0);
 			
-			ImageIcon instructions = new ImageIcon("instructions.png");//This is the title for the instructions screen. It reads, "INSTRUCTIONS".
+			ImageIcon instructions = new ImageIcon("tronImages/instructions.png");//This is the title for the instructions screen. It reads, "INSTRUCTIONS".
 			JLabel instructionsLabel = new JLabel(instructions);
 			instructionsLabel.setSize(800,140);
 			instructionsLabel.setLocation(-5,0);
 			mPage.add(instructionsLabel,0);
 			
-			ImageIcon p1Font = new ImageIcon("p1Font.png");//This is a text that reads, "PLAYER 1"
+			ImageIcon p1Font = new ImageIcon("tronImages/p1Font.png");//This is a text that reads, "PLAYER 1"
 			JLabel p1FontLabel = new JLabel(p1Font);
 			p1FontLabel.setSize(400,140);
 			p1FontLabel.setLocation(-30,220);
 			mPage.add(p1FontLabel,0);
 			
-			ImageIcon p2Font = new ImageIcon("p2Font.png");//This is a text that reads, "PLAYER 2"
+			ImageIcon p2Font = new ImageIcon("tronImages/p2Font.png");//This is a text that reads, "PLAYER 2"
 			JLabel p2FontLabel = new JLabel(p2Font);
 			p2FontLabel.setSize(400,140);
 			p2FontLabel.setLocation(410,220);
 			mPage.add(p2FontLabel,0);
 			
-			ImageIcon wasd = new ImageIcon("wasd.png");//under where it says player 1, a picture of the wasd keys are added to tell the user what keys to use
+			ImageIcon wasd = new ImageIcon("tronImages/wasd.png");//under where it says player 1, a picture of the wasd keys are added to tell the user what keys to use
 			JLabel wasdLabel = new JLabel(wasd);
 			wasdLabel.setSize(400,190);
 			wasdLabel.setLocation(-30,280);
 			mPage.add(wasdLabel,0);
 			
-			ImageIcon arrows = new ImageIcon("arrowKeys.png");//under where it says player 2, a picture of the arrow keys are added to tell the user what keys to use
+			ImageIcon arrows = new ImageIcon("tronImages/arrowKeys.png");//under where it says player 2, a picture of the arrow keys are added to tell the user what keys to use
 			JLabel arrowsLabel = new JLabel(arrows);
 			arrowsLabel.setSize(400,190);
 			arrowsLabel.setLocation(410,280);
@@ -181,14 +181,13 @@ class GamePanel extends JPanel implements MouseListener{
 		//menuYes=menu;
 		player1=new TronRacer(Color.blue,700,300);
 		player2=new TronRacer(Color.red,100,300);
-		tronBack=new ImageIcon("tronBack.png").getImage();
-		winner=new ImageIcon("congrats.png").getImage();
-		invinc=new ImageIcon("invinc.png").getImage();
-		//Image winner=winnerPic.getScaledInstance(156,74,Image.SCALE_DEFAULT);
-		tieGame=new ImageIcon("tieGame.png").getImage();
-		menuBack=new ImageIcon("MENUBACK.jpg").getImage();
+		tronBack=new ImageIcon("tronImages/tronBack.png").getImage();
+		winner=new ImageIcon("tronImages/congrats.png").getImage();
+		invinc=new ImageIcon("tronImages/invinc.png").getImage();
+		tieGame=new ImageIcon("tronImages/tieGame.png").getImage();
+		menuBack=new ImageIcon("tronImages/MENUBACK.jpg").getImage();
 
-		spaceToStart=new ImageIcon("spaceToStart.png").getImage();
+		spaceToStart=new ImageIcon("tronImages/spaceToStart.png").getImage();
 		spaceToStart=spaceToStart.getScaledInstance(300,28,Image.SCALE_SMOOTH);
 		keys=new boolean[KeyEvent.KEY_LAST+1];
 		setSize(800,600);
