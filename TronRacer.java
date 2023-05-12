@@ -2,7 +2,7 @@
 public class TronRacer {
  	private boolean alive=true;
  	private int locx,locy,dirX,dirY;
- 	private int[] front=new int[4];
+ 	private int[] front;
  	private Color color=Color.blue;
  	private boolean invincOn=false;
 
@@ -52,16 +52,4 @@ public class TronRacer {
 	public boolean getInvinc(){
 		return invincOn;
 	}
-/*	public void setDirX(int dir){
-		dirX=dir;
-	}
-	public void setDirY(int dir){
-		dirY=dir;
-	}
-	public int getDirX(){
-		return dirX;
-	}
-	public int getDirY(){
-		return dirY;
-	}*/
 }
