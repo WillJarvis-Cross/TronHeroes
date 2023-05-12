@@ -148,21 +148,18 @@ class TronMenu extends JFrame implements ActionListener{//This class acts as a m
 		
     }
 }
-class GamePanel extends JPanel implements MouseListener, ActionListener{
+class GamePanel extends JPanel implements MouseListener{
 	private TronRacer player1,player2;
-	private TronMenu newMenu;
-	private int mousex,mousey;
 	private boolean[] keys;
 	private int[][] boardtrack=new int[160][120];
 	Image tronBack,winner,tieGame,invinc,menuBack,spaceToStart, p1Font, p2Font;
 	public boolean ready=false;
-	private boolean gotName=false;
 	final static int RIGHT=1;
 	final static int LEFT=2;
 	final static int UP=3;
 	final static int DOWN=4;
-	static int player1Move=LEFT;
-	static int player2Move=RIGHT;
+	static int player1Move=RIGHT;
+	static int player2Move=LEFT;
 	static int temp=0;
 	static boolean startPos=true;
 	static boolean p1Move=false;
@@ -172,8 +169,6 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 	int powerplaced=-1;
 	static boolean menuYes;
 	JButton startBtn = new JButton("START GAME");
-	JButton menuBtn = new JButton("RETURN TO MENU");//The play button on the menu and the instructions screen
-	JButton playAgainBtn = new JButton("PLAY AGAIN");
 	static JLayeredPane mPage;
 	
 
@@ -182,21 +177,9 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 		mPage.setLayout(null);
 		setLayout(new BorderLayout());
 		addMouseListener(this);
-		menuBtn.addActionListener(this);
-		playAgainBtn.addActionListener(this);
-		playAgainBtn.setSize(200,60);//adding instructions button
-		playAgainBtn.setLocation(150,400);
-		menuBtn.setSize(200,60);//adding instructions button
-		menuBtn.setLocation(425,400);
-		if (gameOver) {
-			
-			mPage.add(playAgainBtn, 0);
-			mPage.add(menuBtn, 0);
-		}
 		
-		//menuYes=menu;
-		player1=new TronRacer(Color.blue,700,300);
-		player2=new TronRacer(Color.red,100,300);
+		player1=new TronRacer(Color.blue,100,300);
+		player2=new TronRacer(Color.red,700,300);
 		tronBack=new ImageIcon("tronImages/tronBack.png").getImage();
 		winner=new ImageIcon("tronImages/congrats.png").getImage();
 		invinc=new ImageIcon("tronImages/invinc.png").getImage();
@@ -209,43 +192,40 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 		spaceToStart=spaceToStart.getScaledInstance(300,28,Image.SCALE_SMOOTH);
 		keys=new boolean[KeyEvent.KEY_LAST+1];
 		setSize(800,600);
-		int[] startP1 = {0, 0, 0, 1};
+		int[] startP1 = {1, 0, 1, 1};
 		player1.setFront(startP1);
-		int[] startP2 = {1, 0, 1, 1};
+		int[] startP2 = {0, 0, 0, 1};
 		player2.setFront(startP2);
 		startBtn.setSize(100,30);
 		startBtn.setLocation(350,400);
-		add(mPage);
 	}
 	
 	public void reset() {
-		int[] startP1 = {0, 0, 0, 1};
+		int[] startP1 = {1, 0, 1, 1};
 		player1.setFront(startP1);
-		int[] startP2 = {1, 0, 1, 1};
+		int[] startP2 = {0, 0, 0, 1};
 		player2.setFront(startP2);
 		boardtrack=new int[160][120];
 		player1.setAlive(true);
 		player2.setAlive(true);
-		player1.setTronX(700);
+		player1.setTronX(100);
 		player1.setTronY(300);
-		player2.setTronX(100);
+		player2.setTronX(700);
 		player2.setTronY(300);
 		gameOver = false;
-		mPage.remove(playAgainBtn);
-		mPage.remove(menuBtn);
 		p1Move = false;
 		p2Move = false;
-		player1Move = LEFT;
-		player2Move = RIGHT;
+		player1Move = RIGHT;
+		player2Move = LEFT;
 	}
 
 	public void setKey(int k, boolean v) {
     	keys[k] = v;
     }
     public void direct() {
-    	if (gameOver) {
-			mPage.add(playAgainBtn, 0);
-			mPage.add(menuBtn, 0);
+		System.out.println(keys[KeyEvent.VK_RIGHT]);
+    	if (gameOver && keys[KeyEvent.VK_SPACE]) {
+			reset();
 		}
     	if (player1.getAlive() && player2.getAlive()){
 			if (startPos==false){//the first bit of each tron player's line
@@ -264,26 +244,26 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 			}
 	    	startPos=false;
 	    	if (p1Move==false){
-				if(keys[KeyEvent.VK_RIGHT] && player1Move!=LEFT){
+				if(keys[KeyEvent.VK_D] && player1Move!=LEFT){
 					player1Move=RIGHT;
 					int[] arr = {1, 0, 1, 1};
 					player1.setFront(arr);
 					p1Move=true;
 
 				}
-				else if(keys[KeyEvent.VK_LEFT] && player1Move!=RIGHT){
+				else if(keys[KeyEvent.VK_A] && player1Move!=RIGHT){
 					player1Move=LEFT;
 					int[] arr = {0, 0, 0, 1};
 					player1.setFront(arr);
 					p1Move=true;
 				}
-				else if(keys[KeyEvent.VK_UP] && player1Move!=DOWN){
+				else if(keys[KeyEvent.VK_W] && player1Move!=DOWN){
 					player1Move=UP;
 					int[] arr = {0, 0, 1, 0};
 					player1.setFront(arr);
 					p1Move=true;
 				}
-				else if(keys[KeyEvent.VK_DOWN] && player1Move!=UP){
+				else if(keys[KeyEvent.VK_S] && player1Move!=UP){
 					player1Move=DOWN;
 					int[] arr = {0, 1, 1, 1};
 					player1.setFront(arr);
@@ -295,28 +275,28 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 	    		p1Move=false;
 	    	}
 	    	if (p2Move==false){
-				if(keys[KeyEvent.VK_D] && player2Move!=LEFT){
+				if(keys[KeyEvent.VK_DOWN] && player2Move!=LEFT){
 					player2Move=RIGHT;
 					int[] arr = {1, 0, 1, 1};
 					player2.setFront(arr);
 					p2Move=true;
 
 				}
-				else if(keys[KeyEvent.VK_A] && player2Move!=RIGHT){
+				else if(keys[KeyEvent.VK_LEFT] && player2Move!=RIGHT){
 					player2Move=LEFT;
 					int[] arr = {0, 0, 0, 1};
 					player2.setFront(arr);
 					p2Move=true;
 
 				}
-				else if(keys[KeyEvent.VK_W] && player2Move!=DOWN){
+				else if(keys[KeyEvent.VK_UP] && player2Move!=DOWN){
 					player2Move=UP;
 					int[] arr = {0, 0, 1, 0};
 					player2.setFront(arr);
 					p2Move=true;
 
 				}
-				else if(keys[KeyEvent.VK_S] && player2Move!=UP){
+				else if(keys[KeyEvent.VK_RIGHT] && player2Move!=UP){
 					player2Move=DOWN;
 					int[] arr = {0, 1, 1, 1};
 					player2.setFront(arr);
@@ -386,80 +366,61 @@ class GamePanel extends JPanel implements MouseListener, ActionListener{
 					}
 				}
 			}
-		    if (player1.getAlive()==true && player2.getAlive()==true){
+		    if (!gameOver){
 		    	g.setColor(player1.getTronColor());
 		       	g.fillRect(player1.getTronX(),player1.getTronY(),10,10);
 		       	g.setColor(player2.getTronColor());
 		       	g.fillRect(player2.getTronX(),player2.getTronY(),10,10);
 		    }
 		    else{
-		    	if (player1.getAlive()==true && player2.getAlive()==false){
-		    		g.drawImage(winner,166,150,this);
-					g.drawImage(p2Font,279,400,this);
-		    	}
-		    	else if(player2.getAlive()==true && player1.getAlive()==false){
+				g.drawImage(spaceToStart, 260, 0, this);
+		    	if (player1.getAlive() && !player2.getAlive()){
 		    		g.drawImage(winner,166,150,this);
 					g.drawImage(p1Font,279,400,this);
 		    	}
-		    	else if (player1.getAlive()==false && player2.getAlive()==false){
+		    	else if(player2.getAlive() && !player1.getAlive()){
+		    		g.drawImage(winner,166,150,this);
+					g.drawImage(p2Font,279,400,this);
+		    	}
+		    	else {
 		    		g.drawImage(tieGame,150,232,this);
 		    	}
-				
 		    }
 	    }
-
 	    temp++;
-
     }
     public void collide(){
-    	if (player1.getAlive() && player2.getAlive()){
-	    	if (player1.getTronX()<0 || player1.getTronX()>785 || player1.getTronY()<0 || player1.getTronY()>560){
-	    		player1.setAlive(false);
-				gameOver = true;
-	    	}
-
-	    	else if ((boardtrack[(player1.getTronX()/5+player1.getFront()[0])][(player1.getTronY()/5+player1.getFront()[1])]==1 || boardtrack[(player1.getTronX()/5+player1.getFront()[2])][(player1.getTronY()/5+player1.getFront()[3])]==1)&& player1.getInvinc()==false){
-	    		player1.setAlive(false);
-				gameOver = true;
-	    	}
-	    	if (player2.getTronX()<0 || player2.getTronX()>785 || player2.getTronY()<0 || player2.getTronY()>560){
-	    		player2.setAlive(false);
-				gameOver = true;
-	    	}
-	    	else if ((boardtrack[(player2.getTronX()/5+player2.getFront()[0])][(player2.getTronY()/5+player2.getFront()[1])]==1 || boardtrack[(player2.getTronX()/5+player2.getFront()[2])][(player2.getTronY()/5+player2.getFront()[3])]==1)&& player2.getInvinc()==false){
-	    		player2.setAlive(false);
-				gameOver = true;
-	    	}
-    	}
+		if (player1.getTronX()<0 || player1.getTronX()>785 || player1.getTronY()<0 || player1.getTronY()>560){
+			player1.setAlive(false);
+			gameOver = true;
+		}
+		else if ((boardtrack[(player1.getTronX()/5+player1.getFront()[0])][(player1.getTronY()/5+player1.getFront()[1])]==1 || boardtrack[(player1.getTronX()/5+player1.getFront()[2])][(player1.getTronY()/5+player1.getFront()[3])]==1)&& player1.getInvinc()==false){
+			player1.setAlive(false);
+			gameOver = true;
+		}
+		if (player2.getTronX()<0 || player2.getTronX()>785 || player2.getTronY()<0 || player2.getTronY()>560){
+			player2.setAlive(false);
+			gameOver = true;
+		}
+		else if ((boardtrack[(player2.getTronX()/5+player2.getFront()[0])][(player2.getTronY()/5+player2.getFront()[1])]==1 || boardtrack[(player2.getTronX()/5+player2.getFront()[2])][(player2.getTronY()/5+player2.getFront()[3])]==1)&& player2.getInvinc()==false){
+			player2.setAlive(false);
+			gameOver = true;
+		}
     }
-
-
-
 
     // ------------ MouseListener ------------------------------------------
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseClicked(MouseEvent e){}
-	public void actionPerformed(ActionEvent evt) {
+    public void mousePressed(MouseEvent e){}
+	/*public void actionPerformed(ActionEvent evt){
 		if(evt.getSource()==playAgainBtn){//if they press the instructions button
 			//new Tron();//means the instructions page will be displayed when it gets called
-			reset();
+			//reset();
 		} else if (evt.getSource() == menuBtn) {
+			reset();
 			new Tron();//making a new TronMenu and this time it is the instructions page
 		}
-	}
-
-    public void mousePressed(MouseEvent e){
-		/*destx = e.getX();
-		desty = e.getY();
-		destx -= destx %5;
-		desty -= desty %5;*/
-	}
-
-    // ---------- MouseMotionListener ------------------------------------------
-
-
-
-
+	}*/
 }
